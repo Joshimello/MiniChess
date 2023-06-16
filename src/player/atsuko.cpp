@@ -15,32 +15,27 @@ void read_board(ifstream& fin) {
     for (int i=0; i<BOARD_H; i++) {
       for (int j=0; j<BOARD_W; j++) {
         int c; fin >> c;
-        // cout << c << " ";
         board.board[pl][i][j] = c;
       }
-      // cout << endl;
     }
   }
+
   root = new State(board, player);
   root->get_legal_actions();
 }
 
 void write_valid_spot(ofstream& fout) {
-  while(true) {
-
-    if(!root->legal_actions.size()){
-      root->get_legal_actions();
-    }
-
-    auto actions = root->legal_actions;
-    auto move = actions[0];
-
-    fout << move.first.first << " " << move.first.second << " "\
-         << move.second.first << " " << move.second.second << endl;
-    
-    fout.flush();
-    break;
+  if(!root->legal_actions.size()){
+    root->get_legal_actions();
   }
+
+  auto actions = root->legal_actions;
+  auto move = actions[0];
+
+  fout << move.first.first << " " << move.first.second << " "\
+       << move.second.first << " " << move.second.second << endl;
+  
+  fout.flush();
 }
 
 int main(int, char** argv) {
@@ -52,5 +47,6 @@ int main(int, char** argv) {
 
   fin.close();
   fout.close();
+
   return 0;
 }

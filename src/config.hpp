@@ -18,8 +18,13 @@
 //   {" ", "♟", "♜", "♞", "♝", "♛", "♚"},
 //   {" ", "♙", "♖", "♘", "♗", "♕", "♔"},
 // };
-#define PIECE_STR_LEN 2
-const char PIECE_TABLE[2][7][5] = {
-  {"  ", "wP", "wR", "wK", "wB", "wQ", "wK"},
-  {"  ", "bP", "bR", "bK", "bB", "bQ", "bK"},
+// #define PIECE_STR_LEN 2
+// const char PIECE_TABLE[2][7][5] = {
+//   {"  ", "wP", "wR", "wK", "wB", "wQ", "wK"},
+//   {"  ", "bP", "bR", "bK", "bB", "bQ", "bK"},
+// };
+#define PIECE_STR_LEN 1
+const char PIECE_TABLE[2][7][30] = {
+  {" ", "P", "R", "H", "B", "Q", "K"},
+  {" ", "\033[1;31mP\033[0m", "\033[1;31mR\033[0m", "\033[1;31mH\033[0m", "\033[1;31mB\033[0m", "\033[1;31mQ\033[0m", "\033[1;31mK\033[0m"},
 };
