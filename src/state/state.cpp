@@ -13,24 +13,16 @@
  */
 int State::evaluate(){
   // [TODO] design your own evaluation function
-  int values[7] = {0, 100, 500, 300, 300, 900, 1200};
-
-  int w_val = 0;
+  int board_val = 0;
+  int val[7] = {0, 2, 6, 7, 8, 20, 100};
   for(int i = 0; i < 6; i++){
     for(int j = 0; j < 5; j++){
-      w_val += values[(int)this->board.board[0][i][j]];
+      int curr_val = val[(int)this->board.board[player][i][j]];
+      int oppo_val = val[(int)this->board.board[1-player][i][j]];
+      board_val += oppo_val - curr_val;
     }
   }
-
-  int b_val = 0;
-  for(int i = 0; i < 6; i++){
-    for(int j = 0; j < 5; j++){
-      b_val += values[(int)this->board.board[1][i][j]];
-    }
-  }
-
-  // return w_val - b_val;
-  return 0;
+  return board_val;
 }
 
 
