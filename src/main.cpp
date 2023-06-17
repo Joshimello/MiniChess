@@ -255,7 +255,7 @@ void State::get_legal_actions(){
       }
     }
   }
-  std::cout << "\n";
+  // std::cout << "\n";
   this->legal_actions = all_actions;
 }
 
@@ -430,11 +430,11 @@ int main(int argc, char** argv) {
     std::ifstream fin(file_action);
     Move action(Point(-1, -1), Point(-1, -1));
     int total = 0;
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
-    system("cls");
-#else
-    system("clear");
-#endif
+// #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+//     system("cls");
+// #else
+//     system("clear");
+// #endif
     while (true) {
       int x, y, n, m;
       if (!(fin >> x)) break;
@@ -463,6 +463,8 @@ int main(int argc, char** argv) {
       log << x_axis[action.first.second] << y_axis[action.first.first] << " → " \
           << x_axis[action.second.second] << y_axis[action.second.first] << "\n";
       log << data;
+      game.player = !game.player;
+      game.game_state = WIN;
       break;
     }else{
       temp = game.next_state(action);
