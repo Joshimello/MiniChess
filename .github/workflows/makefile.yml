@@ -17,5 +17,7 @@ jobs:
     - name: Install dependencies
       run: make all
       
-    - name: Download all workflow run artifacts
-      uses: actions/download-artifact@v3
+    - uses: actions/upload-artifact@v3
+      with:
+        name: build
+        path: ./build/
