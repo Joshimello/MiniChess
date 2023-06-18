@@ -25,15 +25,15 @@ void read_board(ifstream& fin) {
   root->get_legal_actions();
 }
 
-int get_move_val(State* state, int depth, int A, int B){
+int get_move_val(State* state, int depth, int A, int B, int me){
   if(depth == 0){
     return state->evaluate();
   }
 
-  if(state->player == 0){
+  if(me){
     int maxeval = -1e9;
     for(auto& move : state->legal_actions){
-      int eval = get_move_val(state->next_state(move), depth-1, A, B);
+      int eval = get_move_val(state->next_state(move), depth-1, A, B, !me);
       maxeval = max(maxeval, eval);
       A = max(A, eval);
       if(B <= A) break;
@@ -44,7 +44,7 @@ int get_move_val(State* state, int depth, int A, int B){
   else {
     int mineval = 1e9;
     for(auto& move : state->legal_actions){
-      int eval = get_move_val(state->next_state(move), depth-1, A, B);
+      int eval = get_move_val(state->next_state(move), depth-1, A, B, !me);
       mineval = min(mineval, eval);
       B = min(B, eval);
       if(B <= A) break;
@@ -64,7 +64,7 @@ void write_valid_spot(ofstream& fout) {
   int bestmoveindex = 0;
 
   for(auto& move : root->legal_actions){
-    int eval = get_move_val(root->next_state(move), 6, -1e9, 1e9);
+    int eval = get_move_val(root->next_state(move), 6, -1e9, 1e9, 0);
     if(eval > besteval){
       besteval = eval;
       bestmoveindex = moveindex;
