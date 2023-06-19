@@ -55,28 +55,34 @@ int get_move_val(State* state, int depth, int A, int B, int me){
 }
 
 void write_valid_spot(ofstream& fout) {
-  if(!root->legal_actions.size()){
-    root->get_legal_actions();
-  }
-
-  int besteval = -1e9;
-  int moveindex = 0;
-  int bestmoveindex = 0;
-
-  for(auto& move : root->legal_actions){
-    int eval = get_move_val(root->next_state(move), 6, -1e9, 1e9, 0);
-    if(eval > besteval){
-      besteval = eval;
-      bestmoveindex = moveindex;
+  int maxdepth = 4;
+  while(true){
+    if(!root->legal_actions.size()){
+      root->get_legal_actions();
     }
-    moveindex++;
-  }
 
-  Move move = root->legal_actions[bestmoveindex];
-  fout << move.first.first << " " << move.first.second << " "\
-       << move.second.first << " " << move.second.second << endl;
-  
-  fout.flush();
+    int besteval = -1e9;
+    int moveindex = 0;
+    int bestmoveindex = 0;
+
+    for(auto& move : root->legal_actions){
+      int eval = get_move_val(root->next_state(move), maxdepth, -1e9, 1e9, 0);
+      if(eval > besteval){
+        besteval = eval;
+        bestmoveindex = moveindex;
+      }
+      moveindex++;
+    }
+
+    Move move = root->legal_actions[bestmoveindex];
+    fout << move.first.first << " " << move.first.second << " "\
+         << move.second.first << " " << move.second.second << endl;
+    
+    fout.flush();
+
+    // if(maxdepth < 6) maxdepth++;
+    maxdepth += 2;
+  }
 }
 
 int main(int, char** argv) {
